@@ -1,0 +1,39 @@
+## The data here is of generic interest to modules in different namespaces hence this is marked as global.
+## Replace your domain names here.
+## mosip-api-host:  External public access. (Typically required only in production rollouts).
+## mosip-api-internal-host: Internal secure access over Wireguard.
+## By default all domains and subdomains listed below point to mosip-api-internal-host. Modify this default behavior ONLY in production rollout as follows:
+##     mosip-prereg-host:  Points to mosip-api-host.
+##     mosip-pmp-host: Points to mosip-api-host.
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: global
+  namespace: esignet
+data:
+  installation-name: sandbox2
+  installation-domain: {{ .Values.domain.name }}
+  mosip-version: develop
+  mosip-api-host: {{ .Values.domain.mosipApiHost }}.{{ .Values.domain.name }}
+  mosip-api-internal-host: {{ .Values.domain.mosipApiInternalHost }}.{{ .Values.domain.name }}
+  mosip-prereg-host: prereg.{{ .Values.domain.name }}
+  mosip-activemq-host: activemq.{{ .Values.domain.name }}
+  mosip-kibana-host: kibana.{{ .Values.domain.name }}
+  mosip-admin-host: admin.{{ .Values.domain.name }}
+  mosip-regclient-host: regclient.{{ .Values.domain.name }}
+  mosip-minio-host: {{ .Values.domain.mosipMinioHost  }}.{{ .Values.domain.name }}
+  mosip-kafka-host: kafka.{{ .Values.domain.name }}
+  mosip-iam-external-host: {{ .Values.domain.mosipIamExternalHost  }}.{{ .Values.domain.name }}
+  mosip-postgres-host: postgres.{{ .Values.domain.name }}
+  mosip-pmp-host: pmp.{{ .Values.domain.name }}
+  mosip-resident-host: resident.{{ .Values.domain.name }}
+  mosip-compliance-host: compliance.{{ .Values.domain.name }}
+  mosip-esignet-host: {{ .Values.domain.mosipEsignetHost  }}.{{ .Values.domain.name }}
+  mosip-smtp-host: smtp.{{ .Values.domain.name }}
+  mosip-singup-host: signup.{{ .Values.domain.name }}
+  is_glowroot_env: absent
+  SPRING_CONFIG_NAME: esignet
+  SPRING_CONFIG_LOCATION: /home/mosip/esignet-local.properties
+  spring_profiles_active: local
+

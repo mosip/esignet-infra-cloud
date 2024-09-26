@@ -1,0 +1,23 @@
+{{- if and .Values.serviceAccount.create .Values.rbac.create }}
+kind: ClusterRoleBinding
+apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
+metadata:
+  name: {{ template "esignet-init.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: esignet-init
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ template "esignet-init.fullname" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ template "esignet-init.serviceAccountName" . }}
+    namespace: {{ .Release.Namespace }}
+{{- end }}

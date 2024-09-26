@@ -1,0 +1,267 @@
+apiVersion: v1
+entries:
+  artifactory:
+  - apiVersion: v2
+    created: "2024-07-17T07:21:30.067284507Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: A Helm chart for MOSIP Artifactory
+    digest: a64ce924b9f96b9995f1cd52f30f665c7e9a405defa8aa00b833a24908fbba19
+    home: https://mosip.io
+    keywords:
+    - artifactory
+    - antivirus
+    - anti-virus
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: artifactory
+    type: application
+    urls:
+    - artifactory-12.0.2.tgz
+    version: 12.0.2
+  esignet:
+  - apiVersion: v2
+    created: "2024-07-17T07:21:30.07197901Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: A Helm chart for MOSIP esignet module
+    digest: b68520999958bf6b46d5e7e870cbb6bc56302822fc39f098a9953fdf5484207d
+    home: https://mosip.io
+    keywords:
+    - mosip
+    - esignet
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: esignet
+    type: application
+    urls:
+    - esignet-1.4.0.tgz
+    version: 1.4.0
+  esignet-bootstrap:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-07-17T07:21:30.074177768Z"
+    description: A Helm chart for Kubernetes
+    digest: 4018a4a7911df1bc1db205bc38e27078cfda32356564aebb53a61a34818e36b2
+    name: esignet-bootstrap
+    type: application
+    urls:
+    - esignet-bootstrap-0.1.0.tgz
+    version: 0.1.0
+  esignet-init:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-07-17T07:21:30.076994231Z"
+    description: A Helm chart for Kubernetes
+    digest: 62aad6e4e6d03081b2f399978406402812a442f8f35bbb8cc42a79699801900a
+    name: esignet-init
+    type: application
+    urls:
+    - esignet-init-0.1.0.tgz
+    version: 0.1.0
+  
+  esignet-preinit:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-07-17T07:21:30.082562862Z"
+    description: A Helm chart for Kubernetes
+    digest: 77e2da10bc40e1e20c8396fc40b694eb18b3e865835fddbdfa47e9e169d2ae27
+    name: esignet-preinit
+    type: application
+    urls:
+    - esignet-preinit-0.1.0.tgz
+    version: 0.1.0
+ 
+  kafka:
+  - annotations:
+      category: Infrastructure
+    apiVersion: v2
+    appVersion: 3.2.1
+    created: "2024-07-17T07:21:30.099181979Z"
+    dependencies:
+    - condition: zookeeper.enabled
+      name: zookeeper
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: Apache Kafka is a distributed streaming platform designed to build
+      real-time pipelines and can be used as a message broker or as a replacement
+      for a log aggregation solution for big data applications.
+    digest: 79849a75fdd9b40edb547cb966f574812e0597492396a2cc7df992141fd54e29
+    home: https://github.com/bitnami/charts/tree/master/bitnami/kafka
+    icon: https://bitnami.com/assets/stacks/kafka/img/kafka-stack-220x234.png
+    keywords:
+    - kafka
+    - zookeeper
+    - streaming
+    - producer
+    - consumer
+    maintainers:
+    - name: Bitnami
+      url: https://github.com/bitnami/charts
+    name: kafka
+    sources:
+    - https://github.com/bitnami/containers/tree/main/bitnami/kafka
+    - https://kafka.apache.org/
+    urls:
+    - kafka-18.3.1.tgz
+    version: 18.3.1
+  kafka-ui:
+  - apiVersion: v2
+    appVersion: v0.4.0
+    created: "2024-07-17T07:21:30.100370132Z"
+    description: A Helm chart for kafka-UI
+    digest: a8e630de428d02c1b7acd165127edd7e08c33a0458d93fcc4a48a9fb31ce1f47
+    icon: https://github.com/provectus/kafka-ui/raw/master/documentation/images/kafka-ui-logo.png
+    name: kafka-ui
+    type: application
+    urls:
+    - kafka-ui-v0.4.2.tgz
+    version: v0.4.2
+  keycloak:
+  - annotations:
+      category: DeveloperTools
+    apiVersion: v2
+    appVersion: 16.1.1
+    created: "2024-07-17T07:21:30.110268932Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.x.x
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: Keycloak is a high performance Java-based identity and access management
+      solution. It lets developers add an authentication layer to their applications
+      with minimum effort.
+    digest: 7729bb391d500c57fdb5b01bb6a8825208fdbc6dab10d755806c68c3d6cf0367
+    home: https://www.keycloak.org
+    icon: https://bitnami.com/assets/stacks/keycloak/img/keycloak-stack-220x234.png
+    keywords:
+    - keycloak
+    - access-management
+    maintainers:
+    - email: containers@bitnami.com
+      name: Bitnami
+    name: keycloak
+    sources:
+    - https://github.com/bitnami/bitnami-docker-keycloak
+    - https://github.com/keycloak/keycloak
+    urls:
+    - keycloak-7.1.18.tgz
+    version: 7.1.18
+  keycloak-init:
+  - apiVersion: v2
+    appVersion: 1.2.0
+    created: "2024-07-17T07:21:30.114463809Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: A Helm chart for Kubernetes to initialize Keycloak  (updating for
+      test)
+    digest: c5e539e9f9c0b50125c1b467816d8623031bd129045d8604a4df5401cb89bc71
+    home: https://mosip.io
+    keywords:
+    - keycloak
+    - access-management
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: keycloak-init
+    type: application
+    urls:
+    - keycloak-init-12.0.1.tgz
+    version: 12.0.1
+ 
+  oidc-ui:
+  - apiVersion: v2
+    created: "2024-07-17T07:21:30.118313329Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: A Helm chart for MOSIP OIDC UI module
+    digest: e8d94a6fc5a9c849e6eef1ff268e644427d788334ab419625d94a194af5d94f8
+    home: https://mosip.io
+    keywords:
+    - mosip
+    - oidc-ui
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: oidc-ui
+    type: application
+    urls:
+    - oidc-ui-1.4.0.tgz
+    version: 1.4.0
+  postgres-init:
+  - apiVersion: v2
+    appVersion: 1.2.0
+    created: "2024-07-17T07:21:30.121600263Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: A Helm chart for Kubernetes to initialize various Postgres DBs.
+    digest: 23945579da82a51337dae0e780d843845a344d9f28e3bed0e3005e375b419e24
+    home: https://mosip.io
+    keywords:
+    - postgres
+    - db
+    - database
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: postgres-init
+    type: application
+    urls:
+    - postgres-init-12.0.1.tgz
+    version: 12.0.1
+  softhsm:
+  - apiVersion: v2
+    created: "2024-07-17T07:21:30.125736583Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: A Helm chart for MOSIP Softhsm module
+    digest: b5166e26dafca21b737ab80b031e7fb4fc0765c47f5709a5424705a4287a5e5e
+    home: https://mosip.io
+    keywords:
+    - softhsm
+    - hsm
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: softhsm
+    type: application
+    urls:
+    - softhsm-12.0.1.tgz
+    version: 12.0.1 
+generated: "2024-07-17T07:21:30.064968719Z"

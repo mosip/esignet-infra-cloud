@@ -1,0 +1,42 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: esignet-bootstrap-job
+  labels:
+    {{- include "esignet-bootstrap.labels" . | nindent 4 }}
+spec:
+  backoffLimit: {{ .Values.backoffLimit }}
+  template:
+    metadata:
+      labels:
+        {{- include "esignet-bootstrap.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/name: esignet-bootstrap-job
+        sidecar.istio.io/inject: "false"
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/managed-by: {{ .Release.Service }} 
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "esignet-bootstrap.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.jobSecurityContext | nindent 8 }}
+      restartPolicy: Never  # This is one time job
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: HOST
+              value: {{ .Values.image.envVars.HOST }}
+            - name: DATABASE
+              value: {{ .Values.image.envVars.DATABASE }}
+            - name: USERNAME
+              value: {{ .Values.image.envVars.USERNAME }}
+            - name: PASSWORD
+              value: {{ .Values.image.envVars.PASSWORD }}
+            - name: NEW_DB
+              value: {{ .Values.image.envVars.NEW_DB }}

@@ -1,0 +1,19 @@
+apiVersion: v2
+dependencies:
+- name: common
+  repository: https://charts.bitnami.com/bitnami
+  tags:
+  - bitnami-common
+  version: 1.x.x
+description: A Helm chart for MOSIP Artifactory
+home: https://mosip.io
+keywords:
+- artifactory
+- antivirus
+- anti-virus
+maintainers:
+- email: info@mosip.io
+  name: MOSIP
+name: artifactory
+type: application
+version: 12.0.2

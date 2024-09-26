@@ -1,0 +1,42 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: esignet-init-job
+  labels:
+    {{- include "esignet-init.labels" . | nindent 4 }}
+spec:
+  backoffLimit: {{ .Values.backoffLimit }}
+  template:
+    metadata:
+      labels:
+        {{- include "esignet-init.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/name: esignet-init-job
+        sidecar.istio.io/inject: "false"
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/managed-by: {{ .Release.Service }} 
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "esignet-init.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.jobSecurityContext | nindent 8 }}
+      restartPolicy: Never  # This is one time job
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: AWS_KAFKA_ARN
+              value: {{ .Values.image.envVars.AWS_KAFKA_ARN | quote }}
+            - name: DB_HOSTNAME
+              value: {{ .Values.image.envVars.DB_HOSTNAME | quote }}
+            - name: DB_PORT
+              value: {{ .Values.image.envVars.DB_PORT | quote }}
+            - name: DB_USERNAME
+              value: {{ .Values.image.envVars.DB_USERNAME | quote }}
+            - name: DB_PASSWORD
+              value: {{ .Values.image.envVars.DB_PASSWORD | quote }}
