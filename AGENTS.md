@@ -45,11 +45,17 @@ file (`aws/.env`, `gcp/.env`) rather than a `.env.example` template.
 demo/sample values, including an AWS account ID, an `RDS_PASSWORD`, a
 domain, and a certificate ARN — treat any values already in that file as
 compromised (they are visible in a public repo) rather than as a safe
-pattern to copy. Do not add or replace values in `aws/.env`/`gcp/.env`
-with anything that could be a real secret; if a value must vary per
-deployment, prefer an untracked local override or a secrets manager over
-editing the tracked file. Never commit real account IDs, passwords, ARNs,
-or other environment-specific secrets when editing these files.
+pattern to copy. `aws/lib/config.ts` loads `aws/.env` from a fixed
+relative path via `dotenv.config(...)`, and `gcp/builds/apps/deploy-script.yaml`
+sources `gcp/.env` directly from the working directory — neither loader
+supports a separate override path or filename today, so whatever is
+committed at `aws/.env`/`gcp/.env` is what gets used. Do not add or
+replace values in either file with anything that could be a real secret.
+The durable fix — converting these to `.gitignore`d files with a
+`.env.example` template, so a real value never has to be tracked — is a
+repository change outside the scope of this documentation-only PR; until
+that lands, never commit real account IDs, passwords, ARNs, or other
+environment-specific secrets when editing these files.
 
 ## Project Structure Notes
 
@@ -104,7 +110,10 @@ in this repository, and no other `AGENTS.md`/`CLAUDE.md` files exist yet
    actual files in the repo before writing documentation or comments.
 3. Treat `aws/.env` and `gcp/.env` as configuration templates that
    already contain sample values — replace samples with your own
-   locally, and keep secrets out of anything you commit or push.
+   locally only as uncommitted, unstaged changes; keep secrets out of
+   anything you commit or push. Run `git status`/`git diff` on these
+   two files before staging anything in `aws/` or `gcp/` to confirm
+   you haven't picked up a real value.
 4. Flag any command that can create, modify, or destroy cloud resources
    (`cdk deploy`/`destroy`, `terraform apply`/`destroy`, Cloud Build
    destroy pipelines) clearly when suggesting it.
