@@ -40,13 +40,16 @@ submit`).
 ## Configuration
 
 Both modules read environment-specific values from a checked-in `.env`
-file (`aws/.env`, `gcp/.env`) rather than a `.env.example` template. Both
-files are already present in the repository with sample/demo values (an
-AWS account ID, RDS password, domain, and certificate ARN in `aws/.env`;
-Helm chart/image versions in `gcp/.env`). Never commit real account IDs,
-passwords, ARNs, or other environment-specific secrets when editing these
-files — replace the sample values locally and keep the diff you push
-limited to what the task actually requires.
+file (`aws/.env`, `gcp/.env`) rather than a `.env.example` template.
+`aws/.env` is already tracked in this repository with what look like
+demo/sample values, including an AWS account ID, an `RDS_PASSWORD`, a
+domain, and a certificate ARN — treat any values already in that file as
+compromised (they are visible in a public repo) rather than as a safe
+pattern to copy. Do not add or replace values in `aws/.env`/`gcp/.env`
+with anything that could be a real secret; if a value must vary per
+deployment, prefer an untracked local override or a secrets manager over
+editing the tracked file. Never commit real account IDs, passwords, ARNs,
+or other environment-specific secrets when editing these files.
 
 ## Project Structure Notes
 
@@ -66,9 +69,9 @@ in this repository, and no other `AGENTS.md`/`CLAUDE.md` files exist yet
    avoid cross-editing both unless the change genuinely applies to both.
 2. Follow the module-specific guide for how to validate a change (CDK
    synth, Terraform plan, etc.) before proposing it.
-3. Keep documentation (`README.md`, `documentation/*.md` under `aws/`)
-   in sync with any change to deployment steps, stack names, or Helm
-   chart versions.
+3. Keep the relevant module documentation in sync with changes to
+   deployment steps, stack names, Terraform stages, or Helm chart
+   versions. This includes `aws/documentation/*.md` and `gcp/README.md`.
 
 ## Pull Request Guidelines
 
